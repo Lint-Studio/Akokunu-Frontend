@@ -18,7 +18,7 @@ a {
 .side-navbar {
   width: fit-content;
   height: fit-content;
-  width: 100%;
+
 }
 
 .main-view {
@@ -27,7 +27,6 @@ a {
 }
 
 @media only screen and (min-width: 460px) {
-  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,600;0,700;0,800;1,300&display=swap");
 
   .side-navbar {
     width: 295px !important;

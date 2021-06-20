@@ -4,29 +4,42 @@ import useSWR from "swr";
 import RoomCard from "../../components/roomCard";
 import { Link } from "react-router-dom";
 import RoomModal from "../../components/roomModal";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import axios from "axios";
+import {room_api_deleteRoom, room_api_getAll} from "../../data/api";
+
+
+
+
 const Dashboard = () => {
-  const data = [
-    { name: "RoomOne" },
-    { name: "RoomTwo" },
-    { name: "RoomTwo" },
-    { name: "RoomTwo" },
-    { name: "RoomTwo" },
-    { name: "RoomTwo" },
-    { name: "RoomTwo" },
-  ];
+  const [data,setData]=useState([]);
   const [show, setShow] = useState(false);
+
+  useEffect(()=>{
+      let isMounted=true;
+      if(isMounted) {
+          axios.get(room_api_getAll).then(res => {
+                  setData(res.data)
+          }).catch(res => {
+              console.log(res)
+          });
+      }
+
+      return () => {
+          isMounted = false}
+  },[])
+
+
+
   return (
     <div>
-      <RoomModal show={show} onHide={() => setShow(false)} />
+      <RoomModal  show={show} onHide={() => setShow(false)} />
       <div className={style.menuContainer}>
         <button className={style.customBtn} onClick={() => setShow(true)}>
           Add Room
         </button>
       </div>
       <div className={style.dashboardWrapper}>
-        {data ? (
-          data.map((room) => {
+        {data.map((room) => {
             return (
               <Link className='mylink'
                 to={{
@@ -36,13 +49,11 @@ const Dashboard = () => {
                   },
                 }}
               >
-                <RoomCard room={room.name} />
+                <RoomCard room={room.name}/>
               </Link>
             );
           })
-        ) : (
-          <div>Loading</div>
-        )}
+        }
       </div>
     </div>
   );

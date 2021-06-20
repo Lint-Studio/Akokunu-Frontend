@@ -1,28 +1,74 @@
-import React from 'react'
-import { Chart } from 'react-charts'
+import {Line} from "react-chartjs-2";
+import {useEffect, useState} from "react";
+import {sensor_api_getSensorDataAll} from "../../data/api";
+import Plot from 'react-plotly.js';
+import axios from "axios";
+import MediaQuery from "react-responsive/src";
 
-export default function GraphCard (props) {
-  const data =[{
-        label: 'Series 2',
-        data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-      }]
- 
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: 'linear', position: 'bottom' },
-      { type: 'linear', position: 'left' }
-    ],
-    []
-  )
- 
-  return (
-    <>    <div style={{
-      width: '400px',
-      height: '300px'
-    }}
-  >
-        <Chart data={data} axes={axes} />
-        </div>
-    </>
-  )
-}
+
+const GraphCard = (props) => {
+
+    return(
+    <div {...props}>
+
+        <MediaQuery minDeviceWidth={460}>
+            {(matches) =>
+            matches ? <Plot
+                data={[
+                    {
+                        x: props.time,
+                        y: props.temperature,
+                        type: 'scatter',
+                        name:"Temperature",
+                        mode: 'lines+markers',
+                        marker: {
+                            color: 'green',
+                            size: 5,
+
+                        },
+                    },
+                    {
+                        x: props.time,
+                        y: props.humidity,
+                        type: 'scatter',
+                        name:"Humidity",
+                        mode: 'lines+markers',
+                        marker: {
+                            color: 'red',
+                            size: 5,
+
+                        },
+                    }
+
+                ]}
+                layout={ {width:500, height: 400}}
+
+            />: <Plot
+                data={[
+                    {
+                        x: props.time,
+                        y: props.temperature,
+                        type: 'scatter',
+                        name:"Temperature",
+                        mode: 'lines+markers',
+                        marker: {color: 'red'},
+                    },
+                    {
+                        x: props.time,
+                        y: props.humidity,
+                        type: 'scatter',
+                        name:"Humidity",
+                        mode: 'lines+markers',
+                        marker: {color: 'green'},
+                    }
+                ]}
+                layout={ {width:300, height: 200}}
+
+            />
+        }
+        </MediaQuery>
+
+    </div>);
+};
+
+export default GraphCard;

@@ -13,7 +13,7 @@ const LoginPage=(props)=> {
      var vaildID=false;
     
      cred.map((user)=>{
-       if( user.usename==usernameRef.current.value && user.password==passwordRef.current.value){
+       if( user.usename===usernameRef.current.value && user.password===passwordRef.current.value){
         vaildID=true;
        }
      })
