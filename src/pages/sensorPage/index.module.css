@@ -2,7 +2,10 @@
   margin-top: 1vmin;
   margin-right: 1vmin;
 }
-
+.tableContainer{
+  height: 40vmin;
+  overflow-y: auto;
+}
 .mySensorContainer {
 }
 .menuContainer {

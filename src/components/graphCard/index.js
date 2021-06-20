@@ -1,13 +1,10 @@
-import {Line} from "react-chartjs-2";
-import {useEffect, useState} from "react";
-import {sensor_api_getSensorDataAll} from "../../data/api";
+
 import Plot from 'react-plotly.js';
-import axios from "axios";
 import MediaQuery from "react-responsive/src";
 
 
 const GraphCard = (props) => {
-
+  const  limit=200;
     return(
     <div {...props}>
 
@@ -16,8 +13,8 @@ const GraphCard = (props) => {
             matches ? <Plot
                 data={[
                     {
-                        x: props.time,
-                        y: props.temperature,
+                        x: props.time.slice(0,limit).reverse(),
+                        y: props.temperature.slice(0,limit).reverse(),
                         type: 'scatter',
                         name:"Temperature",
                         mode: 'lines+markers',
@@ -28,8 +25,8 @@ const GraphCard = (props) => {
                         },
                     },
                     {
-                        x: props.time,
-                        y: props.humidity,
+                        x: props.time.slice(0,limit).reverse(),
+                        y: props.humidity.slice(0,limit).reverse(),
                         type: 'scatter',
                         name:"Humidity",
                         mode: 'lines+markers',
@@ -46,16 +43,16 @@ const GraphCard = (props) => {
             />: <Plot
                 data={[
                     {
-                        x: props.time,
-                        y: props.temperature,
+                        x: props.time.slice(0,limit).reverse(),
+                        y: props.temperature.slice(0,limit).reverse(),
                         type: 'scatter',
                         name:"Temperature",
                         mode: 'lines+markers',
                         marker: {color: 'red'},
                     },
                     {
-                        x: props.time,
-                        y: props.humidity,
+                        x: props.time.slice(0,limit).reverse(),
+                        y: props.humidity.slice(0,limit).reverse(),
                         type: 'scatter',
                         name:"Humidity",
                         mode: 'lines+markers',

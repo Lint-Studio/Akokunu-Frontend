@@ -47,7 +47,7 @@ export default function SideNav(props){
                 </div>
               </Link>
               <hr/>
-              <div className="signout">
+              <div className="signOut">
                 <hr/>
                 <Link to="/">
                 <div className={style.menuItemWrapper} onClick={handleSignOut}>

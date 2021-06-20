@@ -10,14 +10,14 @@ const LoginPage=(props)=> {
   const usernameRef=useRef(null);
   const passwordRef=useRef(null);
    const validate=()=>{
-     var vaildID=false;
+     var vaild=false;
     
      cred.map((user)=>{
        if( user.usename===usernameRef.current.value && user.password===passwordRef.current.value){
-        vaildID=true;
+        vaild=true;
        }
      })
-     props.dispatch({type:vaildID}); 
+     props.dispatch({type:vaild});
  
    }
 
