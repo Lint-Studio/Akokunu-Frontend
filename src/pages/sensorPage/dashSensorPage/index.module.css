@@ -1,0 +1,42 @@
+.graphContainer{
+  margin-left: -3em;
+  width: 100% !important;
+}
+
+.customBtn {
+  padding: 0.5em;
+  width: 75%;
+  margin-top: 1em;
+  border: 0 solid transparent;
+  border-radius: 0.5em;
+  background-color: black;
+  color: white;
+}
+
+.customBtn:active {
+  background-color: transparent;
+  border: 2px solid black;
+  color: black;
+}
+
+@media only screen and (min-width: 460px) {
+  .mainContainer{
+    overflow-x:hidden ;
+  }
+  .customBtn {
+    margin-right: 2em !important;
+    padding: 0.5em;
+    width: fit-content;
+    border: 0 solid transparent;
+    border-radius: 0.5em;
+    background-color: black;
+    color: white;
+    transition: 200ms;
+  }
+
+  .customBtn:hover {
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+  }
+}

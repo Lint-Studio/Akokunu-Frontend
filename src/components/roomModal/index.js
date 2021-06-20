@@ -1,9 +1,7 @@
 
-import {Button, Modal} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import axios from "axios"
-import {room_api_deleteRoom, room_api_postNewRoom} from "../../data/api";
-import {useContext} from "react";
-import UpdateContext from "../../data/context";
+import {room_api_postNewRoom} from "../../data/api";
 import {useHistory} from "react-router";
 export default function RoomModal(props) {
     const history = useHistory()
@@ -16,7 +14,7 @@ export default function RoomModal(props) {
           const body={
               name:roomName
           }
-          axios.post(room_api_postNewRoom,body).then(res=> {
+          axios.post(room_api_postNewRoom,body).then(()=> {
               history.go(0)
           }).catch(res=>{console.log(res)})
        props.onHide();

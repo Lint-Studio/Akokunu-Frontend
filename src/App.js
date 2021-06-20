@@ -1,14 +1,15 @@
-import React, {useReducer, useState} from "react";
+import React, {useReducer} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
-import RoomPage from "./pages/roomPage";
+import DashboardRoomPage from "./pages/roomPage/dashRoomPage";
 import DownloadPage from "./pages/downloadPage";
 import SideNav from "./components/sideNav";
-import SensorPage from "./pages/sensorPage";
 import LoginPage from "./pages/loginPage";
-import UpdateContext from "./data/context";
+import DownloadSensorPage from "./pages/sensorPage/downloadSensorPage";
+import DashboardSensorPage from "./pages/sensorPage/dashSensorPage";
+import DownloadRoomPage from "./pages/roomPage/downloadRoomPage";
 
 const routes = [
   {
@@ -19,7 +20,12 @@ const routes = [
   {
     path: "/room-data",
     exact: true,
-    main: () => <RoomPage />,
+    main: () => <DashboardRoomPage />,
+  },
+  {
+    path: "/room-data-download",
+    exact: true,
+    main: () => <DownloadRoomPage/>,
   },
   {
     path: "/data-download",
@@ -29,7 +35,12 @@ const routes = [
   {
     path: "/sensor-data",
     exact: true,
-    main: () => <SensorPage />,
+    main: () => <DashboardSensorPage/>,
+  },
+  {
+    path: "/sensor-data-download",
+    exact: true,
+    main: () => <DownloadSensorPage/>,
   },
 ];
 
@@ -49,8 +60,8 @@ function reducer(state, action) {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [update, setUpdate] = useState(false);
-  const value = { update, setUpdate};
+
+
   const content = (
     <div className="row my-container">
       <div className="side-navbar">

@@ -1,14 +1,12 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./index.module.css";
-import useSWR from "swr";
-import { useLocation, useParams ,useHistory} from "react-router";
-import SensorCard from "../../components/sensorCard";
+import { useLocation,useHistory} from "react-router";
+import SensorCard from "../../../components/sensorCard";
 import { Link } from "react-router-dom";
-import SensorModal from "../../components/sensorModal";
+import SensorModal from "../../../components/sensorModal";
 import axios from "axios";
-import {room_api_deleteRoom, room_api_getAll, room_api_getSensors} from "../../data/api";
-import UpdateContext from "../../data/context";
-const RoomPage = () => {
+import {room_api_deleteRoom, room_api_getSensors} from "../../../data/api";
+const DashboardRoomPage = () => {
 
     const location = useLocation();
     const {name} = location.state===undefined||null? {name:null} :location.state;
@@ -18,7 +16,7 @@ const RoomPage = () => {
         const body={
             name: name
         }
-        axios.post(room_api_deleteRoom,body).then(res=> {
+        axios.post(room_api_deleteRoom,body).then(()=> {
             history.push("/")
         }).catch(res=>{console.log(res)})
     }
@@ -46,7 +44,7 @@ const RoomPage = () => {
       return () => { isMounted = false }
     },[name])
   const [show, setShow] = useState(false);
-    const [update, setUpdate] = useState(false);
+
   return (
     <div>
       <SensorModal roomName={name} show={show} onHide={() => setShow(false)} />
@@ -84,4 +82,4 @@ const RoomPage = () => {
   );
 };
 
-export default RoomPage;
+export default DashboardRoomPage;

@@ -1,11 +1,10 @@
-import React, { Component, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import style from "./index.module.css";
-import useSWR from "swr";
 import RoomCard from "../../components/roomCard";
 import { Link } from "react-router-dom";
 import RoomModal from "../../components/roomModal";
 import axios from "axios";
-import {room_api_deleteRoom, room_api_getAll} from "../../data/api";
+import { room_api_getAll} from "../../data/api";
 
 
 

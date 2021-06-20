@@ -1,6 +1,6 @@
-import { useState } from "react";
+
 import style from "./index.module.css"
-import {FaSkyatlas,FaTachometerAlt,FaDatabase,FaChartBar,FaDownload,FaSignInAlt,FaSignOutAlt} from "react-icons/fa"
+import {FaSkyatlas,FaTachometerAlt,FaDownload,FaSignOutAlt} from "react-icons/fa"
 import { Link} from "react-router-dom";
 export default function SideNav(props){
 
@@ -12,7 +12,7 @@ export default function SideNav(props){
 <div className={style.sideNavWrapper}>
               <div className={style.logoWrapper}>
                 <FaSkyatlas className={style.dashLogo} />
-                <h4 className={style.dashHeader}>Live Aku<br></br> Monitor</h4>
+                <h4 className={style.dashHeader}>Live Aku<br/> Monitor</h4>
               </div>
 
               <Link to="/">
@@ -26,15 +26,6 @@ export default function SideNav(props){
                   </p>
                 </div>
               </Link>
-              <hr/>
-              <div className={style.menuItemWrapper}>
-                <p>
-                  <span>
-                    <FaChartBar className={style.menuItemImg} />
-                  </span>
-                  Analytics
-                </p>
-              </div>
               <hr/>
               <Link to="/data-download">
                 <div className={style.menuItemWrapper}>

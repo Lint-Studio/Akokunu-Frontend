@@ -1,3 +1,79 @@
-.searchBar{
-  width:60%;
+.dashboardWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+  justify-content: start;
+}
+
+.menuContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 1vmin;
+  margin-bottom: 1vmin;
+  justify-content: center;
+}
+
+.menuBar {
+  margin-top: 1vmin;
+  margin-bottom: 1vmin;
+}
+
+.customBtn {
+  padding: 0.5em;
+  width: 75%;
+  margin-top: 1em;
+  border: 0 solid transparent;
+  border-radius: 0.5em;
+  background-color: black;
+  color: white;
+}
+
+.customBtn:active {
+  background-color: transparent;
+  border: 2px solid black;
+  color: black;
+}
+
+@media only screen and (min-width: 460px) {
+  .dashboardWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding: 0;
+  }
+
+  .menuContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+    justify-content: flex-start;
+  }
+  .menuBar {
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+    margin-right: 2vmin;
+  }
+
+  .customBtn {
+    margin-right: 2em !important;
+    padding: 0.5em;
+    width: fit-content;
+    border: 0 solid transparent;
+    border-radius: 0.5em;
+    background-color: black;
+    color: white;
+    transition: 200ms;
+
+  }
+
+  .customBtn:hover {
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+  }
 }

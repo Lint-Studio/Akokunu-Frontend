@@ -1,15 +1,13 @@
-import {useContext, useState} from "react";
-import style from "./index.module.css"
-import {Button, Modal} from "react-bootstrap";
+
+import {Modal} from "react-bootstrap";
 import axios from "axios";
-import {room_api_postNewRoom, sensor_api_postNewSensor} from "../../data/api";
-import UpdateContext from "../../data/context";
+import {sensor_api_postNewSensor} from "../../data/api";
 import {useHistory} from "react-router";
 export default function SensorModal(props){
     const history = useHistory()
   let id="";
   const handleSensorIDChange=(event)=>{id=event.target.value}
-  const handleSubmit=(event)=>{
+  const handleSubmit=()=>{
     if(id===""){
     }else{
         const body={
@@ -17,7 +15,7 @@ export default function SensorModal(props){
             roomName: props.roomName
         }
 
-        axios.post(sensor_api_postNewSensor,body).then(res=> {
+        axios.post(sensor_api_postNewSensor,body).then(()=> {
             history.go(0)
         }).catch(res=>{console.log(res)})
      props.onHide();

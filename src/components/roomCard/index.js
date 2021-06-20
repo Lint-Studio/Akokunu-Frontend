@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import style from "./index.module.css"
 import {WiThermometer,WiHumidity} from "react-icons/wi";
 import axios from "axios";
-import {room_api_getAll, room_api_getAverageTemperature} from "../../data/api";
+import { room_api_getAverageTemperature} from "../../data/api";
 export default function RoomCard(props){
  
     const [state,setState]=useState({humidity:0,temperature:0});

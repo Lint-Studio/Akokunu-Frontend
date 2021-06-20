@@ -2,11 +2,10 @@ import React, {useEffect, useState} from "react";
 import style from "./index.module.css";
 import GaugeChart from "react-gauge-chart";
 import {useHistory, useLocation} from "react-router";
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-import GraphCard from "../../components/graphCard"
+import GraphCard from "../../../components/graphCard"
 import axios from "axios";
-import {sensor_api_deleteSensor, sensor_api_getSensorDataAll} from "../../data/api";
-export default function SensorPage(){
+import {sensor_api_deleteSensor, sensor_api_getSensorDataAll} from "../../../data/api";
+export default function DashboardSensorPage(){
     const location = useLocation() ;
 
     const {identity}  = location.state===undefined||null? {identity:null,name:null} : location.state;
@@ -27,9 +26,9 @@ export default function SensorPage(){
         const body={
             identity: identity
         }
-        axios.post(sensor_api_deleteSensor,body).then(res=> {
+        axios.post(sensor_api_deleteSensor,body).then(()=> {
             history.goBack()
-        }).catch(res=>{console.log(res)})
+        }).catch(res=>{console.log(res,toggle)})
     }
 
 
@@ -54,6 +53,7 @@ export default function SensorPage(){
                         if (isMounted) {
                             setData(res.data);
                             window.sessionStorage.setItem("sensor-data", JSON.stringify(res.data))
+
                         }
                     }).catch(res => {
                         console.log(res)
@@ -97,70 +97,31 @@ export default function SensorPage(){
         return date_info;
 
     }
-
-
-
     return(
         <>
-            <div className={"container-fluid"}>
-                <div className={"d-flex flex-row justify-content-end"}>
-                    <ReactHTMLTableToExcel
-                        id="test-table-xls-button"
-                        className={"btn btn-primary "+style.excelDownloadButton}
-                        table="table-to-xls"
-                        filename="tablexls"
-                        sheet="tablexls"
-                        buttonText="Download as XLS"/>
+            <div className={"container-fluid "+style.mainContainer}>
+                {data?data.map((reading)=>{
+                    let info=getMinutes(reading);
+                    if ((minutes % 1)===0){
+                        time_arr.push(info)
+                        handler(reading)
+                        console.log("SensorData")
 
+                    }
+                }):<div>Loading</div>}
+                <div className={"d-flex flex-row justify-content-end"}>
                     <button className={style.customBtn} onClick={deleteSensor}>
                         Delete Sensor
                     </button>
-
-
                 </div>
 
                 <div className={"row"}>
-                    <div className={"col-lg-6"}>
-                        <div className={style.tableContainer}>
-                            <table className={"table"} style={{overflow:"auto"}} id="table-to-xls">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Temperature</th>
-                                    <th scope="col">Humidity</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {data?data.map((reading,i)=>{
-                                    let info=getMinutes(reading);
-                                    let row;
-                                    if ((minutes % 1)===0){
-                                        time_arr.push(info)
-                                        handler(reading)
-                                        console.log("SensorData")
-                                        row= <tr key={"reading_"+i}>
-                                            <td>{date_info}</td>
-                                            <td>{info}</td>
-                                            <td>{reading.temperature}</td>
-                                            <td>{reading.humidity}</td>
-                                        </tr>
-
-                                    }
-
-                                    return row;}):<div>Loading</div>}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div className={"col-lg-6"}>
+                    <div className={"col-lg-12"}>
                         <GraphCard className={style.graphContainer} time={time_arr} humidity={humidity} temperature={temperature}/>
-                        <div style={{backgroundColor:"black"}}>
-                        </div>
                     </div>
                 </div>
 
-                <div className={"d-flex flex-row justify-content-center "+style.gaugeContainer}>
+                <div className={"d-flex flex-row flex-wrap  justify-content-center "+style.gaugeContainer}>
                     <GaugeChart
                         id="gauge-chart-1"
                         nrOfLevels={50}
@@ -169,7 +130,7 @@ export default function SensorPage(){
                         colors={["#5BE12C", "#F5CD19", "#EA4228"]}
                         percent={temperature[0]/45}
                         arcPadding={0.02}
-                        style={{height:10}}
+
                     />
                     <GaugeChart
                         id="gauge-chart-2"
@@ -179,7 +140,7 @@ export default function SensorPage(){
                         colors={["#5BE12C", "#F5CD19", "#EA4228"]}
                         percent={humidity[0]/100}
                         arcPadding={0.02}
-                        style={{height:10}}
+
                     />
                 </div>
 
