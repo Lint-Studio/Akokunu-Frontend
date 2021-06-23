@@ -33,6 +33,9 @@ export default function SensorCard(props){
         <p>
           {props.identity}<span/>
         </p>
+    <div className={"mt-.1 mb-.1"}>
+        Current Readings
+    </div>
         <div className={"row "}>
         <div className={"col-6 "}>
             <WiThermometer className={style.icon}/>

@@ -7,7 +7,7 @@ import SensorModal from "../../../components/sensorModal";
 import axios from "axios";
 import {room_api_deleteRoom, room_api_getSensors} from "../../../data/api";
 const DashboardRoomPage = () => {
-
+    const  [toggle,setToggle]=useState(false);
     const location = useLocation();
     const {name} = location.state===undefined||null? {name:null} :location.state;
     let history=useHistory();
@@ -20,6 +20,18 @@ const DashboardRoomPage = () => {
             history.push("/")
         }).catch(res=>{console.log(res)})
     }
+    useEffect(()=>{
+        let isMounted=true;
+        const intervalID = setTimeout(() =>  {
+            if(isMounted) {
+                setToggle((toggle) => !toggle)
+            }
+        }, 2000);
+
+        return () => {
+            clearInterval(intervalID);
+            isMounted=false;}
+    },[toggle])
   const [sensors,setSensors] = useState([]);
     useEffect(()=>{
         let isMounted=true;
@@ -33,8 +45,8 @@ const DashboardRoomPage = () => {
                 };
                 axios.post(room_api_getSensors, body).then(res => {
                     if(isMounted) {
-                        setSensors(res.data.sensors)
-                        window.sessionStorage.setItem("sensors", JSON.stringify(res.data.sensors))
+                        setSensors(res.data)
+                        window.sessionStorage.setItem("sensors", JSON.stringify(res.data))
                     }
                 }).catch(res=>{console.log(res)});
             }
@@ -52,17 +64,12 @@ const DashboardRoomPage = () => {
         <button className={style.customBtn} onClick={() => setShow(true)}>
           Add Sensor
         </button>
-
-              <button className={style.customBtn} onClick={deleteRoom}>
-                  Delete Room
-              </button>
-
-
-
+          <button className={style.customBtn} onClick={deleteRoom}>
+              Delete Room
+          </button>
       </div>
 
       <div className={style.dashboardWrapper}>
-
         {sensors?sensors.map((sensor) => {
           return (
             <Link className='mylink'
@@ -78,6 +85,7 @@ const DashboardRoomPage = () => {
           );
         }):<div>Loading</div>}
       </div>
+
     </div>
   );
 };

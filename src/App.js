@@ -1,4 +1,4 @@
-import React, {useReducer} from "react";
+import React, {useEffect, useReducer} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -10,7 +10,8 @@ import LoginPage from "./pages/loginPage";
 import DownloadSensorPage from "./pages/sensorPage/downloadSensorPage";
 import DashboardSensorPage from "./pages/sensorPage/dashSensorPage";
 import DownloadRoomPage from "./pages/roomPage/downloadRoomPage";
-
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://localhost:8080";
 const routes = [
   {
     path: "/",

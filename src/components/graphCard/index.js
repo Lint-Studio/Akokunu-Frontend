@@ -38,7 +38,8 @@ const GraphCard = (props) => {
                     }
 
                 ]}
-                layout={ {width:1000, height: 500}}
+                layout={ {width:1000, height: 500,
+                    yaxis: {range: [0, 300]}}}
 
             />: <Plot
                 data={[
@@ -59,7 +60,8 @@ const GraphCard = (props) => {
                         marker: {color: 'green'},
                     }
                 ]}
-                layout={ {width:360, height:400}}
+                layout={ {width:360, height:400,
+                    yaxis: {range: [0, 300]}}}
 
             />
         }

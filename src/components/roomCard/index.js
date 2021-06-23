@@ -29,6 +29,9 @@ export default function RoomCard(props){
         <p>
           {props.room}
         </p>
+    <div className={"mt-.1 mb-.1"}>
+        Average Readings
+    </div>
         <div className={"row "}>
         <div className={"col-6 "}>
             <WiThermometer className={style.icon}/>

@@ -9,6 +9,19 @@ import { room_api_getSensors} from "../../../data/api";
 const DownloadRoomPage = () => {
     const location = useLocation();
     const {name} = location.state===undefined||null? {name:null} :location.state;
+    const  [toggle,setToggle]=useState(false);
+    useEffect(()=>{
+        let isMounted=true;
+        const intervalID = setTimeout(() =>  {
+            if(isMounted) {
+                setToggle((toggle) => !toggle)
+            }
+        }, 2000);
+
+        return () => {
+            clearInterval(intervalID);
+            isMounted=false;}
+    },[toggle])
      const [sensors,setSensors] = useState([]);
     useEffect(()=>{
         let isMounted=true;
@@ -22,8 +35,8 @@ const DownloadRoomPage = () => {
                 };
                 axios.post(room_api_getSensors, body).then(res => {
                     if(isMounted) {
-                        setSensors(res.data.sensors)
-                        window.sessionStorage.setItem("sensors", JSON.stringify(res.data.sensors))
+                        setSensors(res.data)
+                        window.sessionStorage.setItem("sensors", JSON.stringify(res.data))
                     }
                 }).catch(res=>{console.log(res)});
             }
